@@ -1,0 +1,26 @@
+Vagrant.configure("2") do |config|
+        config.ssh.forward_x11 = true
+        config.vm.provision "shell", inline: <<-SHELL
+	  apt-get update
+	  #apt-get upgrade -y
+	  apt-get install python3 tcpdump  -y
+        SHELL
+
+
+#Configurando Maquinas
+	config.vm.define "pc1" do |pc1|
+		pc1.vm.network "private_network", ip: "192.168.254.201"
+		pc1.vm.hostname = "Computador1"
+                pc1.vm.box      = "debian/jessie64" #ubuntu/xenial64
+                #pc1.vm.provision "shell", inline: <<-SHELL
+                #SHELL
+	end
+       
+        config.vm.define "pc2" do |pc2|
+                pc2.vm.network "private_network", ip: "192.168.254.202"
+                pc2.vm.hostname = "Computador2"
+                pc2.vm.box      = "debian/jessie64"
+                #pc2.vm.provision "shell", inline: <<-SHELL
+                #SHELL
+        end        
+end
