@@ -3,7 +3,7 @@ Vagrant.configure("2") do |config|
 
 # Configurando Maquinas Virtuais
 	config.vm.define "dockersrv" do |dockersrv|
-		dockersrv.vm.network "private_network", ip: "192.168.254.200"
+		dockersrv.vm.network "private_network", ip: "192.168.1.10"
 		dockersrv.vm.hostname = "DockerSrv"
                 dockersrv.vm.box      = "ubuntu/xenial64"
 		dockersrv.vm.provider "virtualbox" do |v|
