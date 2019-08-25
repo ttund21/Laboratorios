@@ -1,6 +1,6 @@
 # Laboratórios
 
-## O que é o Vagrant?
+## O que é o [Vagrant](https://www.vagrantup.com/)?
 + Resumidamente o vagrant é um automatizador de criação de VMs, através de código.
 
 ## COMANDOS UTEIS
