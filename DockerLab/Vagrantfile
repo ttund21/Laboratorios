@@ -1,28 +1,32 @@
+
 #Definindo configuracao gerais
 Vagrant.configure("2") do |config|
         config.ssh.forward_x11 = true
         config.vm.box      = "ubuntu/xenial64"
 	config.vm.provider "virtualbox" do |v|
-	   v.memory = 1024
+	   v.memory = 1024 
 	end
-    	config.vm.provision "shell", inline: <<-SHELL
-      	 curl -sSL https://get.docker.com/ | sh
-         usermod -aG docker vagrant
-      	 systemctl enable docker
-      	 init 6
-      	SHELL
+        config.vm.provision "shell", inline: <<-SHELL
+           curl -sSL https://get.docker.com/ | sh
+           usermod -aG docker vagrant
+  	   systemctl enable docker
+           init 6
+         SHELL
 
 # Configurando Maquinas Virtuais
 	config.vm.define "docker10" do |docker10|
 		docker10.vm.network "private_network", ip: "192.168.1.10", virtualbox__intnet: true
 		docker10.vm.hostname = "docker10"
-        end
+	        docker10.vm.network "forwarded_port", guest: 80, host: 8010 
+  end
 	config.vm.define "docker11" do |docker11|
 		docker11.vm.network "private_network", ip: "192.168.1.11", virtualbox__intnet: true
 		docker11.vm.hostname = "docker11"
-        end 
-      	config.vm.define "docker12" do |docker12|
+		docker11.vm.network "forwarded_port", guest: 80, host: 8011
+  end
+  config.vm.define "docker12" do |docker12|
 		docker12.vm.network "private_network", ip: "192.168.1.12", virtualbox__intnet: true
 		docker12.vm.hostname = "docker12"
-        end 
+		docker12.vm.network "forwarded_port", guest: 80, host: 8012
+  end
 end
