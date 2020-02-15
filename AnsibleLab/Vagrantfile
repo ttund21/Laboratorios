@@ -17,6 +17,5 @@ Vagrant.configure("2") do |config|
                 banco.vm.network "private_network", ip: "192.168.254.202"
                 banco.vm.hostname = "banco"
                 banco.vm.box      = "debian/jessie64"
-
         end        
 end
