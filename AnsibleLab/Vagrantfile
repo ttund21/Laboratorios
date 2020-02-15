@@ -5,36 +5,18 @@ Vagrant.configure("2") do |config|
 		server.vm.network "private_network", ip: "192.168.254.200"
 		server.vm.hostname = "server"
                 server.vm.box      = "centos/7"
-                server.vm.provision "shell", inline: <<-SHELL
-                  sudo yum update -y
-                  sudo yum install epel-release vim wget tree -y
-                  sudo yum install python-pip -y
-                  sudo pip install --upgrade pip
-                  yes | sudo pip install ansible
-                  cp -rv /vagrant/Backups/ansible /home/vagrant/
-                  chown vagrant:vagrant ansible/ -R
-                SHELL
 	end
 
 	config.vm.define "wordpress" do |wordpress|
 		wordpress.vm.network "private_network", ip: "192.168.254.201"
 		wordpress.vm.hostname = "wordpress"
                 wordpress.vm.box      = "centos/7"
-                wordpress.vm.provision "shell", inline: <<-SHELL
-                  sudo cp -v /vagrant/Templates/sshd_config /etc/ssh/sshd_config
-                  sudo chown vagrant:vagrant /etc/ssh/sshd_config
-                  sudo systemctl reload sshd
-                SHELL
 	end
        
         config.vm.define "banco" do |banco|
                 banco.vm.network "private_network", ip: "192.168.254.202"
                 banco.vm.hostname = "banco"
                 banco.vm.box      = "debian/jessie64"
-                banco.vm.provision "shell", inline: <<-SHELL
-                  sudo cp -v /vagrant/Templates/sshd_config /etc/ssh/sshd_config
-                  sudo chown vagrant:vagrant /etc/ssh/sshd_config
-                  sudo systemctl reload sshd
-                SHELL
+
         end        
 end
